@@ -41,7 +41,7 @@ app.get('/webhook', function (req, res) {
 });
 
 app.post('/webhook', function (req, res) {
-  var event = req.body.entry[0].messaging;
+  var event = req.body.entry[0].messaging[0];
   var userId = event.sender.id;
   sendTextMessage(userId, lorem.latin);
   res.sendStatus(200);
