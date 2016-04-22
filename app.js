@@ -60,6 +60,7 @@ app.post('/webhook', function (req, res) {
     randLength = lorem[languages[rand]].length - randPos;
   }
   var text = lorem[languages[rand]].substring(randPos, randLength);
+  console.log(text.length);
   sendTextMessage(userId, text);
   res.sendStatus(200);
 });
