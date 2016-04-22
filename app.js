@@ -11,6 +11,7 @@ const lorem = require('./lorem');
 var token = process.env.FACEBOOK_TOKEN;
 var verifyToken = process.env.FACEBOOK_VERIFY;
 var port = 3000;
+var maxLength = 320;
 
 function sendTextMessage(sender, text) {
   var messageData = {
@@ -41,10 +42,25 @@ app.get('/webhook', function (req, res) {
   }
 });
 
+var languages = [
+  'latin',
+  'chinese',
+  'russian',
+  'greek',
+  'japanese',
+];
+
 app.post('/webhook', function (req, res) {
   var event = req.body.entry[0].messaging[0];
   var userId = event.sender.id;
-  sendTextMessage(userId, lorem.latin.substring(0, 310));
+  var rand = Math.floor(Math.random() * 5);
+  var randLength = Math.floor((Math.random() * maxLength) + 10);
+  var randPos = Math.floor(Math.random() * lorem[rand].length);
+  if (randLength > lorem[rand].length - randPos) {
+    randLength = lorem[rand].length - randPos;
+  }
+  var text = lorem[rand].substring(randPos, randLength);
+  sendTextMessage(userId, text);
   res.sendStatus(200);
 });
 
