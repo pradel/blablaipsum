@@ -34,6 +34,19 @@ function sendTextMessage(sender, text) {
   });
 }
 
+function randomIpsum(str,minLength, maxLength)
+{
+  minLength = minLength || 1;
+  maxLength = maxLength || 140;
+  var randomPos = getRandomInt( 0 , str.length );
+  var randomLength = getRandomInt( minLength , maxLength );
+  return str.substring(randomPos,randomLength);
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 app.get('/webhook', function (req, res) {
   if (req.query['hub.verify_token'] === verifyToken) {
     res.send(req.query['hub.challenge']);
@@ -53,14 +66,8 @@ var languages = [
 app.post('/webhook', function (req, res) {
   var event = req.body.entry[0].messaging[0];
   var userId = event.sender.id;
-  var rand = Math.floor(Math.random() * 5);
-  var randLength = Math.floor((Math.random() * maxLength) + 10);
-  var randPos = Math.floor(Math.random() * lorem[languages[rand]].length);
-  if (randLength > lorem[languages[rand]].length - randPos) {
-    randLength = lorem[languages[rand]].length - randPos;
-  }
-  var text = lorem[languages[rand]].substring(randPos, randLength);
-  console.log(text.length);
+  var random = getRandomInt(0, 5);
+  var text = randomIpsum(languages[random], 10, maxLength);
   sendTextMessage(userId, text);
   res.sendStatus(200);
 });
