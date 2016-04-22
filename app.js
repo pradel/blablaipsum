@@ -55,11 +55,11 @@ app.post('/webhook', function (req, res) {
   var userId = event.sender.id;
   var rand = Math.floor(Math.random() * 5);
   var randLength = Math.floor((Math.random() * maxLength) + 10);
-  var randPos = Math.floor(Math.random() * lorem[rand].length);
-  if (randLength > lorem[rand].length - randPos) {
-    randLength = lorem[rand].length - randPos;
+  var randPos = Math.floor(Math.random() * lorem[languages[rand]].length);
+  if (randLength > lorem[languages[rand]].length - randPos) {
+    randLength = lorem[languages[rand]].length - randPos;
   }
-  var text = lorem[rand].substring(randPos, randLength);
+  var text = lorem[languages[rand]].substring(randPos, randLength);
   sendTextMessage(userId, text);
   res.sendStatus(200);
 });
