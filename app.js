@@ -34,13 +34,13 @@ function sendTextMessage(sender, text) {
   });
 }
 
-function randomIpsum(str,minLength, maxLength)
+function randomIpsum(str, minLength, maxLength)
 {
   minLength = minLength || 1;
   maxLength = maxLength || 140;
   var randomPos = getRandomInt( 0 , str.length );
   var randomLength = getRandomInt( minLength , maxLength );
-  return str.substring(randomPos,randomLength);
+  return str.substr(randomPos, randomLength);
 }
 
 function getRandomInt(min, max) {
