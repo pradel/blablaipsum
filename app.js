@@ -67,7 +67,7 @@ app.post('/webhook', function (req, res) {
   var event = req.body.entry[0].messaging[0];
   var userId = event.sender.id;
   var random = getRandomInt(0, 5);
-  var text = randomIpsum(languages[random], 10, maxLength);
+  var text = randomIpsum(lorem[languages[random]], 10, maxLength);
   sendTextMessage(userId, text);
   res.sendStatus(200);
 });
