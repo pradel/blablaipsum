@@ -4,6 +4,7 @@ var app = express();
 const lorem = require('./lorem');
 
 var token = process.env.FACEBOOK_TOKEN;
+var verifyToken = process.env.FACEBOOK_VERIFY;
 var port = 3000;
 
 function sendTextMessage(sender, text) {
@@ -28,7 +29,7 @@ function sendTextMessage(sender, text) {
 }
 
 app.get('/webhook', function (req, res) {
-  if (req.query['hub.verify_token'] === token) {
+  if (req.query['hub.verify_token'] === verifyToken) {
     res.send(req.query['hub.challenge']);
   } else {
     res.send('Error, wrong validation token');
